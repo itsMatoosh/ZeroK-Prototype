@@ -6,7 +6,7 @@ import me.matoosh.zerok.prototyping.networkemulator.NodeRegistry;
 
 public class Node {
 	public int id;
-	public ArrayList<Integer> connectedTo = new ArrayList<Integer>();
+	public ArrayList<Node> connectedTo = new ArrayList<Node>();
 	
 	//Creates a new node.
 	public Node(int id) {
@@ -20,12 +20,14 @@ public class Node {
 	public void Connect(int[] nodes) {
 		//Storing the connected nodes.
 		for(int i = 0; i < nodes.length; i++) {
-			connectedTo.add(nodes[i]);
+			//Getting info about the node.
+			Node n = NodeRegistry.getNode(i);
+			connectedTo.add(n);
 		}
 	}
 
 	public void UploadResource(Resource resource) {
-		// TODO Auto-generated method stub
+		//Sending the resource to the Node with the root catalog
 		
 	}
 }

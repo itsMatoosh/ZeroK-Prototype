@@ -32,8 +32,8 @@ public class ZeroK {
 		//Printing all of the available nodes.
 		for(Node registeredNode : NodeRegistry.registeredNodes) {
 			System.out.println("Node: " + registeredNode.id + " is connected to: ");
-			for(int connectedId : registeredNode.connectedTo) {
-				System.out.println(connectedId);
+			for(Node connected : registeredNode.connectedTo) {
+				System.out.println(connected.id);
 			}
 		}
 		
