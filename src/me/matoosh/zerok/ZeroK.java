@@ -18,7 +18,7 @@ public class ZeroK {
 		
 		//Spawning nodes into the network.
 		for(int i = 0; i <= nodesNum - 1; i++) {
-			Network.newNode(i);
+			Network.newNode();
 		}
 		
 		//Spawning 50 resources into the network.
@@ -26,7 +26,7 @@ public class ZeroK {
 			Random r = new Random();
 			byte[] b = new byte[20];
 			r.nextBytes(b);
-			Network.newResource(r.nextInt(nodesNum - 1), "resource-" + x, new Directory("prototype"), b);
+			//Network.newResource(r.nextInt(nodesNum - 1), "resource-" + x, new Directory("prototype"), b);
 		}
 		
 		//Printing all of the available nodes.
