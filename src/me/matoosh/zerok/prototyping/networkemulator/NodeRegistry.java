@@ -17,7 +17,7 @@ public class NodeRegistry {
 	//Returns null if the node was not found.
 	public static Node getNode(UUID id) {
 		for(Node n : registeredNodes) {
-			if(n.id == id) {
+			if(n.id.equals(id)) {
 				return n;
 			}
 		}

@@ -11,7 +11,9 @@ import me.matoosh.zerok.prototyping.networkemulator.NodeRegistry;
 public class ZeroK {
 
 	public static boolean shouldStop = false;
-	public static int nodesNum = 25;
+	private static int nodesNum = 150;
+	private static int resourceNum = 100;
+	private static int resourceSize = 30;
 	
 	public static void main(String[] args) {
 		System.out.println("Starting the ZeroK prototype...");
@@ -22,19 +24,11 @@ public class ZeroK {
 		}
 		
 		//Spawning 50 resources into the network.
-		for(int x = 0; x <= 50; x++) {
+		for(int x = 0; x <= resourceNum; x++) {
 			Random r = new Random();
-			byte[] b = new byte[20];
+			byte[] b = new byte[resourceSize];
 			r.nextBytes(b);
-			//Network.newResource(r.nextInt(nodesNum - 1), "resource-" + x, new Directory("prototype"), b);
-		}
-		
-		//Printing all of the available nodes.
-		for(Node registeredNode : NodeRegistry.registeredNodes) {
-			System.out.println("Node: " + registeredNode.id + " is connected to: ");
-			for(Node connected : registeredNode.connectedTo) {
-				System.out.println(connected.id);
-			}
+			Network.newResource(r.nextInt(nodesNum - 1), "resource-" + x, new Directory("prototype"), b);
 		}
 		
 		//Starting the main loop.

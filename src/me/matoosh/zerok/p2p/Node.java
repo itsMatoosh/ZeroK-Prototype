@@ -9,12 +9,28 @@ public class Node {
 	public UUID id;
 	public ArrayList<Node> connectedTo = new ArrayList<Node>();
 	
+	//Constructor automatically registering the node within the network.
+	public Node() {
+		//Assigning an id.
+		id = UUID.randomUUID();
+		
+		//Registering to the NodeRegistry.
+		NodeRegistry.registerNode(this);
+		
+		//Debug
+		//System.out.println("New Node registered: " + id);
+	}
+	
 	//Connects to each of the provided nodes.
 	public void Connect(UUID[] ids) {
 		//Storing the connected nodes.
 		for(UUID id : ids) {
 			//Getting info about the node.
 			Node n = NodeRegistry.getNode(id);
+			
+			if(n == null) {
+				return;
+			}
 			
 			//Connecting TODO: Actual connecting logic
 			connectedTo.add(n);
@@ -28,9 +44,6 @@ public class Node {
 	public void OnConnection(UUID assignedUUID) {
 		//Caching the assigned UUID.
 		this.id = assignedUUID;
-		
-		//Registering the node within the prototyping "network".
-		NodeRegistry.registerNode(this);
 	}
 	
 	public void UploadResource(Resource resource) {

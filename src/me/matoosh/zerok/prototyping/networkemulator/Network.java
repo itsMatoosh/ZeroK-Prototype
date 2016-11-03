@@ -25,7 +25,7 @@ public class Network {
 	}
 
 	//Resource creation logic only for prototyping purposes.
-	//Normally resources are uploaded by peers weithin the network.
+	//Normally resources are uploaded by peers within the network.
 	public static void newResource(int fromNode, String name, 
 			Directory path, byte[] data) {
 		//Getting the node to send the resource from.
