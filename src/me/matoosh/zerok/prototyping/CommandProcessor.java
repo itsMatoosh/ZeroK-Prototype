@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import me.matoosh.zerok.ZeroK;
+import me.matoosh.zerok.p2p.NetworkID;
 import me.matoosh.zerok.p2p.Node;
+import me.matoosh.zerok.p2p.Resource;
 import me.matoosh.zerok.prototyping.networkemulator.NodeRegistry;
+import me.matoosh.zerok.prototyping.networkemulator.ResourceRegistry;
 
 public class CommandProcessor {
 
@@ -16,22 +19,43 @@ public class CommandProcessor {
 	public static void Process(String readLine) {
 		//Writing the command into the console.
 		System.out.println("> " + readLine);
+		String[] command = readLine.split(" ");
 		
-		switch(readLine) {
+		switch(command[0]) {
 		case "stop":
 			ZeroK.shouldStop = true;
 			break;
 		case "count":
 			System.out.println(NodeRegistry.registeredNodes.size());
 			break;
-		case "nodes":
-			//Printing all of the available nodes.
+		case "connections":
+			//Printing all of the made connections.
 			for(Node registeredNode : NodeRegistry.registeredNodes) {
 				System.out.println("Node: " + registeredNode.id + " is connected to: ");
 				for(Node connected : registeredNode.connectedTo) {
 					System.out.println(connected.id);
 				}
 			}
+			break;
+		case "nodes":
+			//Printing all of the available nodes.
+			for(Node registeredNode : NodeRegistry.registeredNodes) {
+				System.out.println("Node: " + registeredNode.id);
+			}
+			break;
+		case "resources":
+			//Printing all of the available resources.
+			for(Node registeredNode : NodeRegistry.registeredNodes) {
+				for(Resource r : registeredNode.storedResources) {
+					System.out.println("Resource " + r.id + " stored in: " + registeredNode.id);
+				}
+			}
+			break;
+		case "owner":
+			//Calculating the owner for a resource.
+			Resource r = ResourceRegistry.getResource(NetworkID.parse(command [1]));
+
+			NodeRegistry.getNode(0).UploadResource(r);
 			break;
 		}
 	}

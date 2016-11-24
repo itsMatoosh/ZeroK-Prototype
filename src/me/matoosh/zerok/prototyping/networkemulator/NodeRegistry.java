@@ -1,8 +1,7 @@
 package me.matoosh.zerok.prototyping.networkemulator;
 
 import java.util.ArrayList;
-import java.util.UUID;
-
+import me.matoosh.zerok.p2p.NetworkID;
 import me.matoosh.zerok.p2p.Node;
 
 //Prototyping class to register all of the nodes available within the network.
@@ -15,7 +14,7 @@ public class NodeRegistry {
 	
 	//Gets the stored node with specific id.
 	//Returns null if the node was not found.
-	public static Node getNode(UUID id) {
+	public static Node getNode(NetworkID id) {
 		for(Node n : registeredNodes) {
 			if(n.id.equals(id)) {
 				return n;
@@ -30,10 +29,5 @@ public class NodeRegistry {
 			}
 		}
 		return null;
-	}
-	
-	//Generates a new UUID unique throughout the network.
-	public static UUID newUniqueNodeID() {
-		return UUID.randomUUID();
 	}
 }

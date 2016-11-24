@@ -1,9 +1,9 @@
 package me.matoosh.zerok.prototyping.networkemulator;
 
 import java.util.Random;
-import java.util.UUID;
 
 import me.matoosh.zerok.p2p.Directory;
+import me.matoosh.zerok.p2p.NetworkID;
 import me.matoosh.zerok.p2p.Node;
 import me.matoosh.zerok.p2p.Resource;
 
@@ -17,21 +17,31 @@ public class Network {
 		Random r = new Random();
 		
 		if(NodeRegistry.registeredNodes.size() > 1) {
-			n.Connect(new UUID[] {
-					NodeRegistry.getNode(r.nextInt(NodeRegistry.registeredNodes.size() - 1)).id,
-					NodeRegistry.getNode(r.nextInt(NodeRegistry.registeredNodes.size() - 1)).id
-			});
+			//Determining how many nodes the new node should connect to.
+			int connectTo = r.nextInt(NodeRegistry.registeredNodes.size() - 1);
+			if(connectTo > 7) {
+				connectTo = 7; //noone has that many friends.
+			}
+			
+			for(int i = 0; i <= 7; i++) {
+				n.Connect(NodeRegistry.getNode(r.nextInt(NodeRegistry.registeredNodes.size() - 1)).id);
+			}		
 		}
 	}
 
 	//Resource creation logic only for prototyping purposes.
 	//Normally resources are uploaded by peers within the network.
-	public static void newResource(int fromNode, String name, 
+	public static void newResource(NetworkID id, String name, 
 			Directory path, byte[] data) {
 		//Getting the node to send the resource from.
-		Node originNode = NodeRegistry.getNode(fromNode);
+		Node originNode = NodeRegistry.getNode(id);
 		
 		//Sending the resource to its owner.
 		originNode.UploadResource(new Resource(path, name, data));
+	}
+	
+	//Sends a resource to a specific Node.
+	public static void routeTo(Node receiver, Resource res) {
+		receiver.OnResourceRoute(res);
 	}
 }
