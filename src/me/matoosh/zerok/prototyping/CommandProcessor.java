@@ -3,11 +3,13 @@ package me.matoosh.zerok.prototyping;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 import me.matoosh.zerok.ZeroK;
 import me.matoosh.zerok.p2p.NetworkID;
 import me.matoosh.zerok.p2p.Node;
 import me.matoosh.zerok.p2p.Resource;
+import me.matoosh.zerok.p2p.requests.ResourceRequest;
 import me.matoosh.zerok.prototyping.networkemulator.NodeRegistry;
 import me.matoosh.zerok.prototyping.networkemulator.ResourceRegistry;
 
@@ -55,7 +57,11 @@ public class CommandProcessor {
 			//Calculating the owner for a resource.
 			Resource r = ResourceRegistry.getResource(NetworkID.parse(command [1]));
 
-			NodeRegistry.getNode(0).UploadResource(r);
+			NodeRegistry.getNode(new Random().nextInt(NodeRegistry.registeredNodes.size() - 1)).UploadResource(r);
+			break;
+		case "download":
+			//Requesting a resource to a node and displaying the details.
+			NodeRegistry.getNode(0).RequestResource(NetworkID.parse(command[1]));
 			break;
 		}
 	}

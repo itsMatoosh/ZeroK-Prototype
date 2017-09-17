@@ -16,16 +16,10 @@ public class Network {
 		Node n = new Node();
 		Random r = new Random();
 		
-		if(NodeRegistry.registeredNodes.size() > 1) {
-			//Determining how many nodes the new node should connect to.
-			int connectTo = r.nextInt(NodeRegistry.registeredNodes.size() - 1);
-			if(connectTo > 7) {
-				connectTo = 7; //noone has that many friends.
-			}
-			
+		if(NodeRegistry.registeredNodes.size() > 1) {					
 			for(int i = 0; i <= 7; i++) {
 				n.Connect(NodeRegistry.getNode(r.nextInt(NodeRegistry.registeredNodes.size() - 1)).id);
-			}		
+			}	
 		}
 	}
 

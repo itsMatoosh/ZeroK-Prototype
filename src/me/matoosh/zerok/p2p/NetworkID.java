@@ -4,7 +4,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 import me.matoosh.zerok.crypto.Hasher;
+import net.ricecode.similarity.DescendingSimilarityScoreComparator;
+import net.ricecode.similarity.DiceCoefficientStrategy;
 import net.ricecode.similarity.JaroStrategy;
+import net.ricecode.similarity.JaroWinklerStrategy;
 import net.ricecode.similarity.SimilarityStrategy;
 import net.ricecode.similarity.StringSimilarityService;
 import net.ricecode.similarity.StringSimilarityServiceImpl;
@@ -59,7 +62,7 @@ public class NetworkID {
 		}
 	}
 	/** Calculates similarity between this and the specified NetworkID. */
-	public double similarityTo(NetworkID other) {
+	public double similarityTo(NetworkID other) {		
 		SimilarityStrategy strategy = new JaroStrategy();
 		StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
 		return service.score(this.toString(), other.toString());

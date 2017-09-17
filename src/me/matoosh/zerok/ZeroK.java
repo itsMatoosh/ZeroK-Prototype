@@ -10,9 +10,9 @@ import me.matoosh.zerok.prototyping.networkemulator.NodeRegistry;
 public class ZeroK {
 
 	public static boolean shouldStop = false;
-	public static int nodesNum = 50;
-	private static int resourceNum = 5;
-	private static int resourceSize = 30;
+	public static int nodesNum = 30000;
+	private static int resourceNum = 4000;
+	private static int resourceSize = 50;
 	
 	public static void main(String[] args) {
 		System.out.println("Starting the ZeroK prototype...");
